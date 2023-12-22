@@ -40,7 +40,11 @@ def convert(image: Image) -> np.ndarray:
     for i in range(8):
         for j in range(8):
 
-            color = image.getpixel(((j + 0.5) * width / 8, (i + 0.5) * height / 8))
+            # Define the region to sample
+            region = image.crop(((j + 0.4) * width / 8, (i + 0.4) * height / 8, (j + 0.6) * width / 8, (i + 0.6) * height / 8))
+
+            # Calculate the average color of the region
+            color = np.mean(np.array(region), axis=(0, 1))
 
             # Calculate the Euclidean distance to each color in the mapping
             distances = {gem: np.linalg.norm(np.array(color) - np.array(gem_color)) for gem_color, gem in color_to_gem.items()}
