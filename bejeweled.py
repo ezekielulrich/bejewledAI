@@ -1,11 +1,33 @@
 from selenium import webdriver
 from selenium.webdriver.common.by import By
+from selenium.webdriver.common.action_chains import ActionChains
+from selenium.webdriver.firefox.options import Options
 
-driver = webdriver.Firefox()
+# Variables
+# Using this random bootleg online version of Bejewled
+url = 'https://www.bubbleshooter.net/game/bejeweled/'
 
-driver.get('https://www.bubbleshooter.net/game/bejeweled/')
+# Create the mute driver to interact with the web version of Bejeweled
+options = Options()
+options.set_preference("media.volume_scale", "0.0")
+driver = webdriver.Firefox(options=options)
 
+# Open specified page
+driver.get(url)
+
+# Navigate to and click play button
 playButton = driver.find_element(By.XPATH, "/html/body/div[2]/div[2]/div/div/div[2]/a/div")
-playButton.click()
+actions = ActionChains(driver)
+actions.move_to_element(playButton).click().perform()
 
-# driver.quit()
+# Go fullscreen
+fullscreen = driver.find_element(By.XPATH, '//*[@id="toggle_fullscreen"]')
+actions.click(fullscreen).perform()
+
+driver.quit()
+
+# making a matrix
+
+# machine learning
+
+# making a move
