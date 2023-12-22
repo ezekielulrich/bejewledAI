@@ -41,7 +41,7 @@ def convert(image: Image) -> np.ndarray:
         for j in range(8):
 
             # Define the region to sample
-            region = image.crop(((j + 0.4) * width / 8, (i + 0.4) * height / 8, (j + 0.6) * width / 8, (i + 0.6) * height / 8))
+            region = image.crop(((j + 0.375) * width / 8, (i + 0.375) * height / 8, (j + 0.625) * width / 8, (i + 0.625) * height / 8))
 
             # Calculate the average color of the region
             color = np.mean(np.array(region), axis=(0, 1))
@@ -51,8 +51,6 @@ def convert(image: Image) -> np.ndarray:
 
             # Get the color with the smallest distance
             nearest_color = min(distances, key=distances.get)
-
-            # Get the gem associated with the nearest color
 
             gem_matrix[i, j] = nearest_color
     
