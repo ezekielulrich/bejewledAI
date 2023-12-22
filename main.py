@@ -13,6 +13,9 @@ url = 'https://en.gameslol.net/data//bejeweled-hd//index.html'
 
 # Accepts a pillow image and converts to a numpy matrix
 def convert(image: Image) -> np.ndarray:
+    # Get the image dimensions
+    width, height = image.size
+
     # Convert the image to RGB
     image = image.convert('RGB')
 
@@ -20,33 +23,38 @@ def convert(image: Image) -> np.ndarray:
     data = np.array(image)
 
     # Define a mapping from color values to gem characters
+    # TODO: Check within a range to make more robust
     color_to_gem = {
-        (247, 25, 54): 'R',  # Red gem
-        (0, 255, 0): 'G',  # Green gem
-        (0, 0, 255): 'Y',  # Yellow gem
-        (0, 0, 255): 'O',  # Orange gem
-
-        # Add more colors as needed
+        (251, 25, 55): 'R',  # Red gem
+        (5, 153, 30): 'G',  # Green gem
+        (255, 246, 34): 'Y',  # Yellow gem
+        (215, 113, 29): 'O',  # Orange gem
+        (241, 15, 244): 'P',  # Pink gem
+        (250, 250, 250): 'W',  # White gem
     }
 
     # Create an empty matrix to hold the gem characters
-    gem_matrix = np.empty(data.shape[:2], dtype='object')
+    gem_matrix = np.empty((8,8), dtype='object')
 
-    # Iterate over each pixel in the image
-    for i in range(data.shape[0]):
-        for j in range(data.shape[1]):
-            # Get the color of the pixel
-            color = tuple(data[i, j])
+    # Iterate over each cell
+    for i in range(8):
+        for j in range(8):
 
-            # Map the color to a gem character
-            gem = color_to_gem.get(color, ' ')
+            color = image.getpixel(((j + 0.5) * width / 8, (i + 0.5) * height / 8))
 
-            # Add the gem character to the matrix
-            gem_matrix[i, j] = gem
+            # Calculate the Euclidean distance to each color in the mapping
+            distances = {gem: np.linalg.norm(np.array(color) - np.array(gem_color)) for gem_color, gem in color_to_gem.items()}
 
+            # Get the color with the smallest distance
+            nearest_color = min(distances, key=distances.get)
+
+            # Get the gem associated with the nearest color
+
+            gem_matrix[i, j] = nearest_color
+    
     return gem_matrix
 
-def load(url):
+def load(url: str):
 
     # Create the mute driver to interact with the web version of Bejeweled
     options = Options()
@@ -74,7 +82,7 @@ def load(url):
     #return driver
     driver.quit()
 
-load(url)
+print(convert(Image.open(r"images\board.png")))
 # making a matrix
 
 # machine learning
