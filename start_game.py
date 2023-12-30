@@ -6,11 +6,11 @@ import time
 
 def get_board(path):
     im=Image.open(path)
-    im = im.crop((500,80,1500,1080)).save(r"images\boards\board_test2.png")
+    im = im.crop((500,80,1500,1080)).save(r"images\boards\board_test3.png")
 
 def make_move(cell, direction):
     time.sleep(1)
-    cell_size = 32*2
+    cell_size = 64
     x=(cell % 8) - 4
     y=int(cell / 8) - 4
     click_to_start.move_to_element_with_offset(canvas, xoffset= 100 + cell_size/2 + x*cell_size, yoffset= -10 + cell_size/2 + y*cell_size).click().perform()
@@ -41,6 +41,7 @@ click_to_start.move_to_element_with_offset(canvas, xoffset= 60, yoffset= -70).cl
 
 directions = ["u", "r", "d", "l"]
 make_move(24,"u")
+make_move(28,"d")
 path = r'C:\GIT_pulls\Bejeweled_ai\bejewledAI\images\boards\screenshot4.png'
 time.sleep(3)
 image = canvas.screenshot(path)
