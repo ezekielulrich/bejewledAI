@@ -25,8 +25,6 @@ def make_move(cell, direction):
     time.sleep(0.2)
     click_to_start.move_to_element_with_offset(canvas, xoffset= (100 + cell_size/2 + x*cell_size)/400*dimensions["width"]/2, yoffset= (-10 + cell_size/2 + y*cell_size)/300*dimensions["height"]/2).click().perform()
 
-
-
 driver = webdriver.Firefox()
 driver.get('https://en.gameslol.net/data//bejeweled-hd//index.html')
 time.sleep(15)
