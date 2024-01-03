@@ -6,7 +6,7 @@ import time
 
 def get_board(path):
     im=Image.open(path)
-    im = im.crop((500,80,1500,1080)).save(r"images\boards\board_test3.png")
+    im = im.crop((500,80,1500,1080)).save(path)
 
 def make_move(cell, direction):
     time.sleep(1)
@@ -31,21 +31,28 @@ driver = webdriver.Firefox()
 driver.get('https://en.gameslol.net/data//bejeweled-hd//index.html')
 time.sleep(15)
 canvas = driver.find_element(By.XPATH, '//*[@id="GameCanvas"]')
+dimensions= canvas.size
 click_to_start = ActionChains(driver)
-click_to_start.move_to_element_with_offset(canvas, xoffset= -175, yoffset= 80).click().perform()
+click_to_start.move_to_element_with_offset(canvas, xoffset= -175/400*dimensions["width"]/2, yoffset= 80/300*dimensions["height"]/2).context_click().perform()
 time.sleep(5)
-click_to_start.move_to_element_with_offset(canvas, xoffset= 60, yoffset= -105).click().perform()
+click_to_start.move_to_element_with_offset(canvas, xoffset= 60/400*dimensions["width"]/2, yoffset= -105/300*dimensions["height"]/2).click().perform()
 time.sleep(2)
-click_to_start.move_to_element_with_offset(canvas, xoffset= 60, yoffset= -70).click().perform()
+click_to_start.move_to_element_with_offset(canvas, xoffset= 60/400*dimensions["width"]/2, yoffset= -70/300*dimensions["height"]/2).click().perform()
 
 
 directions = ["u", "r", "d", "l"]
-make_move(24,"u")
-make_move(28,"d")
-path = r'C:\GIT_pulls\Bejeweled_ai\bejewledAI\images\boards\screenshot4.png'
+#make_move(24,"u")
+#make_move(28,"d")
+#make_move(17,"u")
+path = r'C:\GIT_pulls\Bejeweled_ai\bejewledAI\images\boards\screenshot1.png'
 time.sleep(3)
 image = canvas.screenshot(path)
 get_board(path)
-
-
-
+time.sleep(1)
+path = r'C:\GIT_pulls\Bejeweled_ai\bejewledAI\images\boards\screenshot2.png'
+image = canvas.screenshot(path)
+get_board(path)
+time.sleep(1)
+path = r'C:\GIT_pulls\Bejeweled_ai\bejewledAI\images\boards\screenshot3.png'
+image = canvas.screenshot(path)
+get_board(path)
