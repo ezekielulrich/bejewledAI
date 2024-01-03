@@ -7,6 +7,9 @@ from PIL import Image
 
 import numpy as np
 
+from scipy import stats
+
+
 # Variables
 # Using this random bootleg online version of Bejewled
 url = 'https://en.gameslol.net/data//bejeweled-hd//index.html'
@@ -44,7 +47,8 @@ def convert(image: Image) -> np.ndarray:
             region = image.crop(((j + 0.375) * width / 8, (i + 0.375) * height / 8, (j + 0.625) * width / 8, (i + 0.625) * height / 8))
 
             # Calculate the average color of the region
-            color = np.mean(np.array(region), axis=(0, 1))
+            # color = np.mean(np.array(region), axis=(0, 1))
+            color = stats.mode(np.array(region))
 
             # Calculate the Euclidean distance to each color in the mapping
             distances = {gem: np.linalg.norm(np.array(color) - np.array(gem_color)) for gem_color, gem in color_to_gem.items()}
