@@ -13,7 +13,7 @@ def make_move(cell, direction):
     cell_size = 64
     x=(cell % 8) - 4
     y=int(cell / 8) - 4
-    click_to_start.move_to_element_with_offset(canvas, xoffset= 100 + cell_size/2 + x*cell_size, yoffset= -10 + cell_size/2 + y*cell_size).click().perform()
+    click_to_start.move_to_element_with_offset(canvas, xoffset= (100 + cell_size/2 + x*cell_size)/400*dimensions["width"]/2, yoffset= (-10 + cell_size/2 + y*cell_size)/300*dimensions["height"]/2).click().perform()
     if direction == "u":
         y-=1
     elif direction == "r":
@@ -23,7 +23,7 @@ def make_move(cell, direction):
     elif direction=="l":
         x+=1
     time.sleep(0.2)
-    click_to_start.move_to_element_with_offset(canvas, xoffset= 100 + cell_size/2 + x*cell_size, yoffset= -10 + cell_size/2 + y*cell_size).click().perform()
+    click_to_start.move_to_element_with_offset(canvas, xoffset= (100 + cell_size/2 + x*cell_size)/400*dimensions["width"]/2, yoffset= (-10 + cell_size/2 + y*cell_size)/300*dimensions["height"]/2).click().perform()
 
 
 
@@ -33,7 +33,7 @@ time.sleep(15)
 canvas = driver.find_element(By.XPATH, '//*[@id="GameCanvas"]')
 dimensions= canvas.size
 click_to_start = ActionChains(driver)
-click_to_start.move_to_element_with_offset(canvas, xoffset= -175/400*dimensions["width"]/2, yoffset= 80/300*dimensions["height"]/2).context_click().perform()
+click_to_start.move_to_element_with_offset(canvas, xoffset= -175/400*dimensions["width"]/2, yoffset= 80/300*dimensions["height"]/2).click().perform()
 time.sleep(5)
 click_to_start.move_to_element_with_offset(canvas, xoffset= 60/400*dimensions["width"]/2, yoffset= -105/300*dimensions["height"]/2).click().perform()
 time.sleep(2)
