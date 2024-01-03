@@ -25,18 +25,19 @@ def make_move(cell, direction):
     time.sleep(0.2)
     click_to_start.move_to_element_with_offset(canvas, xoffset= 100 + cell_size/2 + x*cell_size, yoffset= -10 + cell_size/2 + y*cell_size).click().perform()
 
-
-
 driver = webdriver.Firefox()
 driver.get('https://en.gameslol.net/data//bejeweled-hd//index.html')
 time.sleep(15)
 canvas = driver.find_element(By.XPATH, '//*[@id="GameCanvas"]')
+width, height = canvas.size['width'], canvas.size['height']
+print(canvas.size['width'])
+# height: 600, width: 800
 click_to_start = ActionChains(driver)
-click_to_start.move_to_element_with_offset(canvas, xoffset= -175, yoffset= 80).click().perform()
+click_to_start.move_to_element_with_offset(canvas, xoffset = -0.21875 * width, yoffset = 80).context_click().perform()
 time.sleep(5)
-click_to_start.move_to_element_with_offset(canvas, xoffset= 60, yoffset= -105).click().perform()
+click_to_start.move_to_element_with_offset(canvas, xoffset = 60, yoffset = -105).click().perform()
 time.sleep(2)
-click_to_start.move_to_element_with_offset(canvas, xoffset= 60, yoffset= -70).click().perform()
+click_to_start.move_to_element_with_offset(canvas, xoffset = 60, yoffset = -70).click().perform()
 
 
 directions = ["u", "r", "d", "l"]
